@@ -8,17 +8,20 @@ project = Project.model_validate_json(json_text)
 # Collect space IDs
 space_ids = [space.id for space in project.spaces]
 
-# Check that IDs are unique
-if len(space_ids) != len(set(space_ids)):
-    print("ERROR: Duplicate space IDs")
+errors = []
 
-# Check relationships
+if len(space_ids) != len(set(space_ids)):
+    errors.append("Duplicate space IDs")
+
 for relationship in project.relationships:
     if relationship.space_a not in space_ids:
-        print(f"ERROR: Unknown space: {relationship.space_a}")
+        errors.append(f"Unknown space: {relationship.space_a}")
 
     if relationship.space_b not in space_ids:
-        print(f"ERROR: Unknown space: {relationship.space_b}")
+        errors.append(f"Unknown space: {relationship.space_b}")
+
+if errors:
+    raise ValueError("\n".join(errors))
 
 # Check areas
 total_spaces_area = sum(space.target_area_m2 for space in project.spaces)

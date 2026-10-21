@@ -52,8 +52,8 @@ class Space(BaseModel):
     )
 
 # Categoría añadida por mi en cuanto a la conexión con el exterior. Quizás lo de Optional no funciona. 
-    outter_connection: Optional[RelationshipType] = Field(
-        default=RelationshipType.near,
+    outer_connection: Optional[RelationshipType] = Field(
+        default=None,
         description="Connection to the exterior world preference"
     )
 

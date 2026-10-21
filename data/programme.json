@@ -13,7 +13,7 @@
       "max_area_m2": null,
       "daylight": "medium",
       "privacy": "low",
-      "outter_connection": "near"
+      "outer_connection": "near"
     },
     {
       "id": "open_workspace",
@@ -23,7 +23,7 @@
       "max_area_m2": null,
       "daylight": "high",
       "privacy": "low",
-      "outter_connection": "near"
+      "outer_connection": "near"
     },
     {
       "id": "meeting_room_1",
@@ -33,7 +33,7 @@
       "max_area_m2": null,
       "daylight": "medium",
       "privacy": "medium",
-      "outter_connection": null
+      "outer_connection": null
     },
     {
       "id": "meeting_room_2",
@@ -43,7 +43,7 @@
       "max_area_m2": null,
       "daylight": "medium",
       "privacy": "medium",
-      "outter_connection": null
+      "outer_connection": null
     },
     {
       "id": "kitchen",
@@ -53,7 +53,7 @@
       "max_area_m2": null,
       "daylight": "medium",
       "privacy": "low",
-      "outter_connection": null
+      "outer_connection": null
     },
     {
       "id": "toilet_1",
@@ -63,7 +63,7 @@
       "max_area_m2": null,
       "daylight": "low",
       "privacy": "high",
-      "outter_connection": null
+      "outer_connection": null
     },
     {
       "id": "toilet_2",
@@ -73,7 +73,7 @@
       "max_area_m2": null,
       "daylight": "low",
       "privacy": "high",
-      "outter_connection": null
+      "outer_connection": null
     },
     {
       "id": "storage",
@@ -83,7 +83,7 @@
       "max_area_m2": null,
       "daylight": "low",
       "privacy": "low",
-      "outter_connection": null
+      "outer_connection": null
     }
   ],
   "relationships": [

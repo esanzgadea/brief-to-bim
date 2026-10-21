@@ -263,8 +263,8 @@ if __name__ == "__main__":
         print(relationship)
 
     print(
-        f'\nScore: {result["score"]}/{result["max_score"]}'
+        f'\nScore: {result["relationship_score"]}/{result["relationship_max_score"]}'
     )
     print(
-        f'Success rate: {result["success_rate"]:.1f}%'
+        f'Success rate: {result["relationship_success_rate"]:.1f}%'
     )
