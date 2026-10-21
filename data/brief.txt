@@ -1,0 +1,12 @@
+Design a small architecture office for 12 people with an approximate total area of 140 m².
+
+It should contain:
+- an open workspace
+- two meeting rooms close to reception
+- a kitchen directly adjacent to the workspace
+- two toilets
+- a small storage room
+
+The workspace should receive good natural light.
+The meeting rooms should have medium privacy.
+The reception and workspace should be relatively open and public.

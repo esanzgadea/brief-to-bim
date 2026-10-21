@@ -1,0 +1,112 @@
+{
+  "Uuid": "8814be16-286c-4962-a18e-8807c07c06f4",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "import_layout",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "\r\nimport json\r\nimport clr\r\n\r\n# 1. Import the Revit API\r\n\r\nclr.AddReference(\"RevitAPI\")\r\n\r\nfrom Autodesk.Revit.DB import (\r\n    XYZ, Line, Plane, SketchPlane,\r\n    UnitUtils, UnitTypeId, ViewType\r\n)\r\n\r\nclr.AddReference(\"RevitServices\")\r\n\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\n\r\n# 2. Access the current Revit document\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nview = doc.ActiveView\r\n\r\nif view.ViewType != ViewType.FloorPlan:\r\n    raise ValueError(\"Open a floor plan view before running\")\r\n\r\n\r\n# 3. Read our generated layout\r\n\r\nfile_path = r\"C:\\Users\\enriq\\OneDrive\\Documents\\Disco Duro\\Architecture\\BIM\\brief-to-bim\\outputs\\best_layout.json\"\r\n\r\nwith open(file_path, \"r\", encoding=\"utf-8\") as file:\r\n    layout = json.load(file)\r\n\r\nrooms = layout[\"rooms\"]\r\n\r\nbuilding_width = layout[\"building_width\"]\r\nbuilding_height = layout[\"building_height\"]\r\n\r\n\r\n# 4. Convert metres into Revit's internal units\r\n\r\ndef to_revit(value):\r\n    return UnitUtils.ConvertToInternalUnits(\r\n        float(value),\r\n        UnitTypeId.Meters\r\n    )\r\n\r\n\r\n# 5. Create Revit XYZ points\r\n\r\nlevel_z = view.GenLevel.Elevation\r\n\r\ndef point(x, y):\r\n    return XYZ(to_revit(x), to_revit(y), level_z)\r\n\r\n\r\n# 6. Start a Revit transaction\r\n\r\nTransactionManager.Instance.EnsureInTransaction(doc)\r\n\r\nplane = Plane.CreateByNormalAndOrigin(\r\n    XYZ.BasisZ,\r\n    XYZ(0, 0, level_z)\r\n)\r\n\r\nsketch_plane = SketchPlane.Create(doc, plane)\r\n\r\ncreated = 0\r\n\r\ntry:\r\n\r\n    # 7. Draw room boundaries\r\n\r\n    for room in rooms:\r\n\r\n        x = room[\"x\"]\r\n        y = room[\"y\"]\r\n        w = room[\"width\"]\r\n        h = room[\"height\"]\r\n\r\n        # Left and bottom edges\r\n        segments = [\r\n            (point(x, y), point(x, y + h)),\r\n            (point(x, y), point(x + w, y))\r\n        ]\r\n\r\n        # Exterior right boundary\r\n        if abs(x + w - building_width) < 1e-6:\r\n            segments.append((\r\n                point(x + w, y),\r\n                point(x + w, y + h)\r\n            ))\r\n\r\n        # Exterior top boundary\r\n        if abs(y + h - building_height) < 1e-6:\r\n            segments.append((\r\n                point(x, y + h),\r\n                point(x + w, y + h)\r\n            ))\r\n\r\n        for start, end in segments:\r\n\r\n            line = Line.CreateBound(start, end)\r\n\r\n            doc.Create.NewModelCurve(\r\n                line,\r\n                sketch_plane\r\n            )\r\n\r\n            created += 1\r\n\r\nfinally:\r\n    TransactionManager.Instance.TransactionTaskDone()\r\n\r\n\r\n# 8. Return a summary to Dynamo\r\n\r\nOUT = (\r\n    f\"Imported {len(rooms)} spaces | \"\r\n    f\"Created {created} Revit model lines | \"\r\n    f\"Seed {layout['seed']}\"\r\n)\r\n",
+      "Engine": "PythonNet3",
+      "VariableInputPorts": true,
+      "Id": "fb7f219c5fb84893833763a1a56cbd20",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [
+        {
+          "Id": "cba9c155d65e4117a67f953ccd3f7d70",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "e486bb9d0a0c427b96c45b4dd10bc088",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    }
+  ],
+  "Connectors": [],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "EnableLegacyPolyCurveBehavior": false,
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "4.2",
+      "Data": {}
+    },
+    {
+      "ExtensionGuid": "DFBD9CC0-DB40-457A-939E-8C8555555A9D",
+      "Name": "Generative Design",
+      "Version": "10.3",
+      "Data": {}
+    }
+  ],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "4.2.1.5887",
+      "RunType": "Automatic",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "_Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Id": "fb7f219c5fb84893833763a1a56cbd20",
+        "Name": "Python Script",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 71.5,
+        "Y": 231.75
+      }
+    ],
+    "Annotations": [],
+    "X": 59.8780965307775,
+    "Y": -112.3745847732182,
+    "Zoom": 1.33823125
+  }
+}

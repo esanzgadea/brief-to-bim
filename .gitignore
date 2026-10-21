@@ -1,4 +1,22 @@
+
+# Python virtual environment
 .venv/
+
+# API keys and environment variables
 .env
+.env.*
+!.env.example
+
+# Python temporary files
 __pycache__/
 *.pyc
+.pytest_cache/
+
+# Editor settings
+.vscode/
+
+# Revit models, families and backup files
+*.rvt
+*.rfa
+*.rte
+*.slog

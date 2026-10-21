@@ -1,0 +1,114 @@
+{
+  "project": "Small Architecture Office",
+  "selected_seed": 95,
+  "scores": {
+    "relationships": 11,
+    "relationships_max": 11,
+    "proportions": 24,
+    "daylight": 9
+  },
+  "relationships": [
+    {
+      "space_a": "meeting_room_1",
+      "space_b": "reception",
+      "type": "near",
+      "satisfied": true,
+      "priority": 3
+    },
+    {
+      "space_a": "meeting_room_2",
+      "space_b": "reception",
+      "type": "near",
+      "satisfied": true,
+      "priority": 3
+    },
+    {
+      "space_a": "kitchen",
+      "space_b": "open_workspace",
+      "type": "adjacent",
+      "satisfied": true,
+      "priority": 3
+    },
+    {
+      "space_a": "reception",
+      "space_b": "open_workspace",
+      "type": "adjacent",
+      "satisfied": true,
+      "priority": 2
+    }
+  ],
+  "spaces": [
+    {
+      "id": "reception",
+      "name": "Reception",
+      "area_m2": 12.0,
+      "aspect_ratio": 1.47,
+      "proportion_score": 3,
+      "daylight_requirement": "medium",
+      "touches_facade": true
+    },
+    {
+      "id": "open_workspace",
+      "name": "Open Workspace",
+      "area_m2": 72.0,
+      "aspect_ratio": 1.33,
+      "proportion_score": 3,
+      "daylight_requirement": "high",
+      "touches_facade": true
+    },
+    {
+      "id": "meeting_room_1",
+      "name": "Meeting Room 1",
+      "area_m2": 12.0,
+      "aspect_ratio": 1.47,
+      "proportion_score": 3,
+      "daylight_requirement": "medium",
+      "touches_facade": true
+    },
+    {
+      "id": "meeting_room_2",
+      "name": "Meeting Room 2",
+      "area_m2": 12.0,
+      "aspect_ratio": 1.47,
+      "proportion_score": 3,
+      "daylight_requirement": "medium",
+      "touches_facade": true
+    },
+    {
+      "id": "kitchen",
+      "name": "Kitchen",
+      "area_m2": 12.0,
+      "aspect_ratio": 1.7,
+      "proportion_score": 3,
+      "daylight_requirement": "medium",
+      "touches_facade": true
+    },
+    {
+      "id": "toilet_1",
+      "name": "Toilet 1",
+      "area_m2": 4.0,
+      "aspect_ratio": 1.76,
+      "proportion_score": 3,
+      "daylight_requirement": "low",
+      "touches_facade": true
+    },
+    {
+      "id": "toilet_2",
+      "name": "Toilet 2",
+      "area_m2": 4.0,
+      "aspect_ratio": 1.76,
+      "proportion_score": 3,
+      "daylight_requirement": "low",
+      "touches_facade": true
+    },
+    {
+      "id": "storage",
+      "name": "Storage Room",
+      "area_m2": 6.0,
+      "aspect_ratio": 1.17,
+      "proportion_score": 3,
+      "daylight_requirement": "low",
+      "touches_facade": true
+    }
+  ]
+}

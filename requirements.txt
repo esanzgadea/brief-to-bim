@@ -1,0 +1,5 @@
+openai
+pydantic
+networkx
+matplotlib
+python-dotenv

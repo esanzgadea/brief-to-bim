@@ -1,0 +1,115 @@
+{
+  "name": "Small Architecture Office",
+  "building_type": "Architecture office",
+  "total_area_m2": 140.0,
+  "occupants": 12,
+  "floors": 1,
+  "spaces": [
+    {
+      "id": "reception",
+      "name": "Reception",
+      "target_area_m2": 12.0,
+      "min_area_m2": null,
+      "max_area_m2": null,
+      "daylight": "medium",
+      "privacy": "low",
+      "outter_connection": "near"
+    },
+    {
+      "id": "open_workspace",
+      "name": "Open Workspace",
+      "target_area_m2": 72.0,
+      "min_area_m2": null,
+      "max_area_m2": null,
+      "daylight": "high",
+      "privacy": "low",
+      "outter_connection": "near"
+    },
+    {
+      "id": "meeting_room_1",
+      "name": "Meeting Room 1",
+      "target_area_m2": 12.0,
+      "min_area_m2": null,
+      "max_area_m2": null,
+      "daylight": "medium",
+      "privacy": "medium",
+      "outter_connection": null
+    },
+    {
+      "id": "meeting_room_2",
+      "name": "Meeting Room 2",
+      "target_area_m2": 12.0,
+      "min_area_m2": null,
+      "max_area_m2": null,
+      "daylight": "medium",
+      "privacy": "medium",
+      "outter_connection": null
+    },
+    {
+      "id": "kitchen",
+      "name": "Kitchen",
+      "target_area_m2": 12.0,
+      "min_area_m2": null,
+      "max_area_m2": null,
+      "daylight": "medium",
+      "privacy": "low",
+      "outter_connection": null
+    },
+    {
+      "id": "toilet_1",
+      "name": "Toilet 1",
+      "target_area_m2": 4.0,
+      "min_area_m2": null,
+      "max_area_m2": null,
+      "daylight": "low",
+      "privacy": "high",
+      "outter_connection": null
+    },
+    {
+      "id": "toilet_2",
+      "name": "Toilet 2",
+      "target_area_m2": 4.0,
+      "min_area_m2": null,
+      "max_area_m2": null,
+      "daylight": "low",
+      "privacy": "high",
+      "outter_connection": null
+    },
+    {
+      "id": "storage",
+      "name": "Storage Room",
+      "target_area_m2": 6.0,
+      "min_area_m2": null,
+      "max_area_m2": null,
+      "daylight": "low",
+      "privacy": "low",
+      "outter_connection": null
+    }
+  ],
+  "relationships": [
+    {
+      "space_a": "meeting_room_1",
+      "space_b": "reception",
+      "type": "near",
+      "priority": 3
+    },
+    {
+      "space_a": "meeting_room_2",
+      "space_b": "reception",
+      "type": "near",
+      "priority": 3
+    },
+    {
+      "space_a": "kitchen",
+      "space_b": "open_workspace",
+      "type": "adjacent",
+      "priority": 3
+    },
+    {
+      "space_a": "reception",
+      "space_b": "open_workspace",
+      "type": "adjacent",
+      "priority": 2
+    }
+  ]
+}
