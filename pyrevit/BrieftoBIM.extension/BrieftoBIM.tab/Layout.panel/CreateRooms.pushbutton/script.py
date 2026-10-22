@@ -42,7 +42,7 @@ with open(file_path, "r") as file:
 # Exclude the unallocated space
 spaces = [
     room for room in layout["rooms"]
-    if room["id"] != "unallocated"
+    if room["id"] not in ("unallocated", "corridor_secondary")
 ]
 
 
@@ -132,6 +132,12 @@ with revit.Transaction("Brief-to-BIM Create Rooms"):
         # Read actual BIM area
         actual_area = to_m2(room.Area)
         target_area = space["area"]
+
+        if space["id"] == "corridor_main":
+            target_area = sum(
+                r["area"] for r in layout["rooms"]
+                if r.get("kind") == "circulation"
+            )
 
         if actual_area <= 0:
             raise Exception(

@@ -93,7 +93,10 @@ for ax, option in zip(axes.flat, alternatives[:6]):
             (room["x"], room["y"]),
             room["width"],
             room["height"],
-            facecolor="#DCE8ED",
+            facecolor=(
+                "#EFD9A7" if room.get("kind") == "circulation"
+                else "#DCE8ED"
+            ),
             edgecolor="#34495E",
             linewidth=1
         )

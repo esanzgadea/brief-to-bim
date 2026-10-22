@@ -168,7 +168,7 @@ def evaluate_layout(project, layout_data):
     proportion_results = []
 
     for room in rooms:
-        if room["id"] == "unallocated":
+        if room["id"] == "unallocated" or room.get("kind") == "circulation":
             continue
 
         room_score = proportion_score_for_room(room)
